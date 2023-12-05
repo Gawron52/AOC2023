@@ -2,17 +2,17 @@ import java.io.File; // Import the File class
 import java.io.FileNotFoundException; // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
 
-class Third_A {
+class Third_B {
 
     private static int iterator = 1;
     private static int sum = 0;
-    private static int height = 12;
-    private static int width = 12;
+    private static int height = 142;
+    private static int width = 142;
     private static char[][] engine = new char[height][width];
 
     public static void main(String[] args) {
         try {
-            File myObj = new File("test_input.txt");
+            File myObj = new File("input.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
                 String data = " " + myReader.nextLine() + " ";
@@ -32,7 +32,7 @@ class Third_A {
         for (int row = 1; row < height - 1; row++) {
             for (int column = 1; column < width - 1; column++) {
                 if (engine[row][column] == '*') {
-                    String[] numbers = new String[6];
+                    String[] numbers = {"","","","","",""};
                     int numbersNear = 0;
 
                     // check left
