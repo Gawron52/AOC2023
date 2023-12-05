@@ -7,10 +7,6 @@ import java.util.Scanner; // Import the Scanner class to read text files
 class Second_B {
 
     private static int sum = 0;
-    private static int iterator = 0;
-    private static int red_max = 12;
-    private static int green_max = 13;
-    private static int blue_max = 14;
 
     public static void main(String[] args) {
 
@@ -18,9 +14,8 @@ class Second_B {
             File myObj = new File("input.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
-                iterator++;
                 String data = myReader.nextLine();
-                sum += matching(data) * iterator;
+                sum += matching(data);
             }
             myReader.close();
         } catch (FileNotFoundException e) {
@@ -39,26 +34,30 @@ class Second_B {
 
         Matcher setMatcher = setPattern.matcher(data);
 
+        int red = 0;
+        int green = 0;
+        int blue = 0;
+
         while (setMatcher.find()) {
             Matcher redMatcher = redPattern.matcher(setMatcher.group(0));
             Matcher greenMatcher = greenPattern.matcher(setMatcher.group(0));
             Matcher blueMatcher = bluePattern.matcher(setMatcher.group(0));
 
             if (redMatcher.find()) {
-                if (strToNumber(redMatcher.group(1)) > red_max)
-                    return 0;
+                if (strToNumber(redMatcher.group(1)) > red)
+                    red = strToNumber(redMatcher.group(1));
             }
             if (greenMatcher.find()) {
-                if (strToNumber(greenMatcher.group(1)) > green_max)
-                    return 0;
+                if (strToNumber(greenMatcher.group(1)) > green)
+                    green = strToNumber(greenMatcher.group(1));
             }
             if (blueMatcher.find()) {
-                if (strToNumber(blueMatcher.group(1)) > blue_max)
-                    return 0;
+                if (strToNumber(blueMatcher.group(1)) > blue)
+                    blue = strToNumber(blueMatcher.group(1));
             }
         }
 
-        return 1;
+        return red * green * blue;
     }
 
     private static int strToNumber(String str) {
