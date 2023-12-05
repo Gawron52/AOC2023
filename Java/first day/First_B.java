@@ -4,14 +4,14 @@ import java.io.File; // Import the File class
 import java.io.FileNotFoundException; // Import this class to handle errors
 import java.util.Scanner; // Import the Scanner class to read text files
 
-class First_A {
+class First_B {
 
     private static int sum = 0;
 
     public static void main(String[] args) {
 
-        Pattern patern_first = Pattern.compile("(\\d)");
-        Pattern patern_last = Pattern.compile("(\\d)\\D*$");
+        Pattern patern_first = Pattern.compile("(\\d|one|two|three|four|five|six|seven|eight|nine)");
+        Pattern patern_last = Pattern.compile(".*(\\d|one|two|three|four|five|six|seven|eight|nine)");
 
         try {
             File myObj = new File("input.txt");
@@ -36,10 +36,36 @@ class First_A {
         // captured groups.
         int number = 0;
         if (matcher_first.find() && matcher_last.find()) {
-            System.out.print(matcher_first.group(1));
-            System.out.println(matcher_last.group(1));
-            number = Integer.parseInt(matcher_first.group(1) + matcher_last.group(1));
-            sum += number;
+            number = strToDigit(matcher_first.group(1)) * 10 + strToDigit(matcher_last.group(1));
+        }
+        System.out.print(matcher_first.group(1));
+        System.out.println(matcher_last.group(1));
+        System.out.println(number);
+        sum += number;
+    }
+
+    private static int strToDigit(String str) {
+        switch (str) {
+            case "one":
+                return 1;
+            case "two":
+                return 2;
+            case "three":
+                return 3;
+            case "four":
+                return 4;
+            case "five":
+                return 5;
+            case "six":
+                return 6;
+            case "seven":
+                return 7;
+            case "eight":
+                return 8;
+            case "nine":
+                return 9;
+            default:
+                return Integer.parseInt(str);
         }
     }
 }
