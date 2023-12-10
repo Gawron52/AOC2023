@@ -1,31 +1,35 @@
 import java.io.File; // Import the File class
 import java.io.FileNotFoundException; // Import this class to handle errors
+import java.util.Arrays;
 import java.util.Scanner; // Import the Scanner class to read text files
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-class Fourth_A {
+class Fourth_B {
     private static int sum = 0;
-    private static int numberOfWinningCards = 5;
-    private static int numberOfMyCards = 8;
+    private static int cardNumber = 0;
+    private static int[] cardsCopies = new int[225];
 
     public static void main(String[] args) {
+        Arrays.fill(cardsCopies, 1);
         try {
             File myObj = new File("input.txt");
             Scanner myReader = new Scanner(myObj);
             while (myReader.hasNextLine()) {
-                int points = 1;
+                int matches = 0;
                 String[] data = myReader.nextLine().split(": +| \\| +");
                 String[] winningCards = data[1].split(" +");
                 String[] myCards = data[2].split(" +");
                 for (String winningCard : winningCards) {
                     for (String myCard : myCards) {
-                    if (winningCard.equals(myCard)) {
-                        points = points * 2;
-                    }}
+                        if (winningCard.equals(myCard)) {
+                            matches++;
+                        }
+                    }
                 }
-                points = points / 2;
-                sum += points;
+                for (int i = 1; i <= matches; i++) {
+                    cardsCopies[cardNumber + i] += cardsCopies[cardNumber];
+                }
+                sum += cardsCopies[cardNumber];
+                cardNumber++;
             }
             myReader.close();
         } catch (FileNotFoundException e) {
